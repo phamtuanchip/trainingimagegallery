@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.custom.i18n.resources" value="bundles.ApplicationResource" />
+	<constant name="struts.ui.theme" value="simple" />
+	
+	
+	<package name="default" namespace="/" extends="struts-default">
+	<!-- define result -->
+	<result-types>
+		<result-type name="ImageResult" class="training.imagegallery.action.BytesResult" ></result-type>
+	</result-types>
+	<!-- define action -->
+		<action name="CategoryAdd" class="training.imagegallery.action.CategoryAction"
+			method="categoryAdd">
+			<result name="success" type="redirect">categoryList</result>
+		</action>
+		<action name="categoryList" class="training.imagegallery.action.CategoryAction"
+			method="categoryList">
+			<result name="success">/pageCategory/categoryList.jsp</result>
+		</action>
+		<action name="redirectImageCreateForm" class="training.imagegallery.action.ImageCreateAction" method="redirectImageCreateForm">
+			<result name="success" >/pageImage/imageAdd.jsp</result>	
+		</action>
+		<action name="SaveImageInfo" class="training.imagegallery.action.ImageCreateAction" method="saveImage" >
+			<result name="success" type="redirect">ListImage</result>
+			<result name="input" type="chain">/pageImage/imageAdd.jsp</result>
+			<interceptor-ref name="defaultStack">
+				<param name="maximumSize">1048576</param>
+				<param name="allowedtypes">image/jpeg,image/png,image/gif,image/pjpeg</param>
+			</interceptor-ref>	
+		</action>
+		<action name="ListImage" class="training.imagegallery.action.ImageListAction" method="listImage" >
+			<result name="success">/pageImage/imageList.jsp</result>
+		</action>
+		<action name="imageAction" class="training.imagegallery.action.ImageAction" method="">
+			<result name="success" type="ImageResult"></result>
+		</action>
+		<action name="redirectToImageUpdateForm" class="training.imagegallery.action.ImageUpdateAction"
+			method="redirectToFormEdit">
+			<result name="success">/pageImage/imageEdit.jsp</result>
+		</action>
+		<!-- update image -->
+		<action name="updateImage" class="training.imagegallery.action.ImageUpdateAction"
+			method="UpdateImage">
+			<result name="success" type="redirect">ListImage</result>
+		</action>
+		<!-- delete Image -->
+		<action name="deleteImage" class="training.imagegallery.action.ImageDeleteAction"
+			method="DeleteRecordImage">
+			<result name="success" type="redirect">ListImage</result>
+		</action>
+	</package>
+</struts>
