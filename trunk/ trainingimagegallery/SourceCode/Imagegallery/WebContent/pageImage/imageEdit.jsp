@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<td><s:text name="Category" ></s:text></td>
-				<td><s:select list="listCategory" name="category_name" listValue="name" listKey="name" value="%{name}" headerKey="%{categoryImage.name"  headerValue="%{categoryImage.name}" ></s:select></td>
+				<td><s:select list="listCategory" name="category_name" listValue="name" listKey="id" value="%{name}" headerKey="%{categoryImage.name}"  headerValue="%{categoryImage.name}" ></s:select></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -41,5 +41,4 @@
 		<p align="center"><s:submit name="submit"></s:submit></p>
 		</s:form>
 		</div>			
-</body>
 </html>
