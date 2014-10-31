@@ -12,6 +12,7 @@ import training.imagegallery.form.ImageForm;
 import training.imagegallery.model.Category;
 import training.imagegallery.model.Image;
 
+
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ImageUpdateAction extends ActionSupport {
@@ -39,12 +40,14 @@ public class ImageUpdateAction extends ActionSupport {
 	
 	public String UpdateImage() throws FileNotFoundException{
 		try{
+		System.out.println("hello" + category_name);
 		imageForm.setCategory_id(categoryDAOImpl.getCategory(category_name).getId());
+		System.out.println("hello1" + imageForm.getCategory_id());
 		imageDAOImpl.updateImage(imageForm);
 		return SUCCESS;
 		}catch (Exception e) {
 			// TODO: handle exception
-			return INPUT;
+			return ERROR;
 		}
 	}
 	public ImageForm getImageForm() {

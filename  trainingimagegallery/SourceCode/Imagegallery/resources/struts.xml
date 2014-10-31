@@ -50,7 +50,7 @@
 		<action name="updateImage" class="training.imagegallery.action.ImageUpdateAction"
 			method="UpdateImage">
 			<result name="success" type="redirect">ListImage</result>
-			<result name="input" type="chain" >/pageImage/imageEdit.jsp</result>
+			<result name="error">/pageImage/imageEdit.jsp</result>
 			<interceptor-ref name="defaultStack">
 				<param name="maximumSize">1048576</param>
 				<param name="allowedtypes">image/jpeg,image/png,image/gif,image/pjpeg</param>
