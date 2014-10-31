@@ -8,21 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<s:form action="CategoryAdd" >
-	<table border="0" align="center" >
-	<tr>
-	<td><s:text name="category Name:"></s:text></td>
-	<td><s:textfield name="categoryForm.name" ></s:textfield></td>
-	</tr>
-	<tr>
-	<td><s:text name="Description:"></s:text></td>
-	<td><s:textarea name="categoryForm.description" ></s:textarea></td>
-	</tr>
-	</table>
-	<p align="center"><s:submit name="sumbmit"></s:submit></p>
+	<div align="center" >
+	<s:form action="ListImage" >
+		<s:submit name="Wellcome Page Image" value="wellcom Image gallery"></s:submit>
 	</s:form>
-	<s:form action="imageAdd">
-		<s:submit name="add Image"></s:submit>
-	</s:form>
+	</div>
 </body>
 </html>
