@@ -22,6 +22,11 @@ public class CategoryAction extends ActionSupport {
 			.getBean("CategoryDAO");
 	private CategoryForm categoryForm;
 	private List<Category> categoryList;
+	public String rerdirectToCategoryAdd(){
+		
+		return SUCCESS;
+	}
+	
 	public String categoryAdd() throws Exception {
 		categoryDaoImpl.insertCategory(categoryForm.getName(), categoryForm.getDescription());
 		return SUCCESS;

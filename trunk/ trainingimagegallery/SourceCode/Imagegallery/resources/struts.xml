@@ -14,6 +14,9 @@
 		<result-type name="ImageResult" class="training.imagegallery.action.BytesResult" ></result-type>
 	</result-types>
 	<!-- define action -->
+		<action name="redirectToCategoryAdd" class="training.imagegallery.action.CategoryAction" method="rerdirectToCategoryAdd" >
+			<result name="success" >/pageCategory/categoryAdd.jsp</result>
+		</action>
 		<action name="CategoryAdd" class="training.imagegallery.action.CategoryAction"
 			method="categoryAdd">
 			<result name="success" type="redirect">categoryList</result>
@@ -47,6 +50,11 @@
 		<action name="updateImage" class="training.imagegallery.action.ImageUpdateAction"
 			method="UpdateImage">
 			<result name="success" type="redirect">ListImage</result>
+			<result name="input" type="chain" >/pageImage/imageEdit.jsp</result>
+			<interceptor-ref name="defaultStack">
+				<param name="maximumSize">1048576</param>
+				<param name="allowedtypes">image/jpeg,image/png,image/gif,image/pjpeg</param>
+			</interceptor-ref>	
 		</action>
 		<!-- delete Image -->
 		<action name="deleteImage" class="training.imagegallery.action.ImageDeleteAction"

@@ -44,7 +44,7 @@ public class ImageUpdateAction extends ActionSupport {
 		return SUCCESS;
 		}catch (Exception e) {
 			// TODO: handle exception
-			return ERROR;
+			return INPUT;
 		}
 	}
 	public ImageForm getImageForm() {
