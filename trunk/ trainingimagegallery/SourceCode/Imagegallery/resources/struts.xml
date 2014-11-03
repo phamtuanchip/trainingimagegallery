@@ -30,10 +30,10 @@
 		</action>
 		<action name="SaveImageInfo" class="training.imagegallery.action.ImageCreateAction" method="saveImage" >
 			<result name="success" type="redirect">ListImage</result>
-			<result name="input" type="chain">/pageImage/imageAdd.jsp</result>
+			<result name="error" >/pageError/error.jsp</result>
 			<interceptor-ref name="defaultStack">
 				<param name="maximumSize">1048576</param>
-				<param name="allowedtypes">image/jpeg,image/png,image/gif,image/pjpeg</param>
+				<param name="allowedTypes">image/jpeg,image/png,image/gif,image/pjpeg</param>
 			</interceptor-ref>	
 		</action>
 		<action name="ListImage" class="training.imagegallery.action.ImageListAction" method="listImage" >
@@ -50,11 +50,11 @@
 		<action name="updateImage" class="training.imagegallery.action.ImageUpdateAction"
 			method="UpdateImage">
 			<result name="success" type="redirect">ListImage</result>
-			<result name="error">/pageImage/imageEdit.jsp</result>
-			<interceptor-ref name="defaultStack">
+			<result name="error">/pageError/error.jsp</result>
+			 <interceptor-ref name="defaultStack">
 				<param name="maximumSize">1048576</param>
-				<param name="allowedtypes">image/jpeg,image/png,image/gif,image/pjpeg</param>
-			</interceptor-ref>	
+				<param name="allowedTypes">image/jpeg,image/png,image/gif,image/pjpeg</param>
+			</interceptor-ref>
 		</action>
 		<!-- delete Image -->
 		<action name="deleteImage" class="training.imagegallery.action.ImageDeleteAction"
