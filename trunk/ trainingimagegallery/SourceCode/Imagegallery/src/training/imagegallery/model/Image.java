@@ -1,9 +1,7 @@
 package training.imagegallery.model;
 
-import java.sql.Blob;
-import java.sql.Date;
+import java.util.Date;
 
-import oracle.sql.BLOB;
 
 public class Image {
 	private int id;
