@@ -43,12 +43,11 @@ public class ImageCreateAction extends ActionSupport {
 		try{
 		imageForm.setCategory_id(categoryDAOImpl.getCategory(category_name)
 				.getId());
-		imageForm.setImg_size(imageForm.getFile().length());
 		imageDAOImpl.insertImage(imageForm);
 		return SUCCESS;
 		}catch (Exception e) {
 			// TODO: handle exception
-			return INPUT;
+			return ERROR;
 		}
 	}
 

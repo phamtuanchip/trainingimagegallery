@@ -49,22 +49,20 @@ public class ImageDAOImpl implements ImageDAO {
 		// TODO Auto-generated method stub
 		 
 		 final int id = getSquence();
-		String SQL = "INSERT INTO store_img(img_no,img_name,img_description,img_date_create,img_size,img_user_upload,category_id) VALUES(?,?,?,TO_DATE (SYSDATE,'DD-MON-YYYY'),?,?,?)";
+		String SQL = "INSERT INTO store_img(img_no,img_name,img_description,img_date_create,img_user_upload,category_id) VALUES(?,?,?,TO_DATE (SYSDATE,'DD-MON-YYYY'),?,?)";
 		jdbcTemplate.update(SQL,id , image.getImg_name(),
-				image.getImg_description(), image.getImg_size(), image.getImg_user_upload(), image.getCategory_id());
+				image.getImg_description(), image.getImg_user_upload(), image.getCategory_id());
 				updateFileImage(id, image.getFile());	
 		
 	}
 
 	@Override
-	public void updateImage(ImageForm image) throws FileNotFoundException {
+	public void updateImage(ImageForm image){
 		// TODO Auto-generated method stub
-		String SQL = "UPDATE store_img SET img_name =? img_description=? , img_size=?, img_user_upload , category_id=? WHERE img_no=?";
+		String SQL = "UPDATE store_img SET img_name =?, img_description=? , img_user_upload=? , category_id=? WHERE img_no=?";
 		jdbcTemplate.update(SQL, image.getImg_name(),
-				image.getImg_description(),image.getImg_size() , image.getImg_user_upload(), image.getCategory_id(), image.getId());
-		if(image.getFile().length() != 0){
-			updateFileImage(image.getId(), image.getFile());
-		}
+				image.getImg_description(), image.getImg_user_upload(), image.getCategory_id(), image.getId());
+//		}
 	}
 
 	@Override
@@ -94,8 +92,8 @@ public class ImageDAOImpl implements ImageDAO {
 		// TODO Auto-generated method stub
 		 final InputStream imageIs = new FileInputStream(file); 
 		 final LobHandler lobHander = new DefaultLobHandler();
-		 String SQL_updateImage = "UPDATE store_img SET file_img =? WHERE img_no=?";
-			jdbcTemplate.update(SQL_updateImage, new Object[] {new SqlLobValue(imageIs, (int)file.length(), lobHander), id}, new int[] {Types.BLOB, Types.NUMERIC});;
+		 String SQL_updateImage = "UPDATE store_img SET img_size=?,  file_img =? WHERE img_no=?";
+			jdbcTemplate.update(SQL_updateImage, new Object[] {file.length()/1024,new SqlLobValue(imageIs, (int)file.length(), lobHander), id}, new int[] {Types.VARCHAR,Types.BLOB, Types.NUMERIC});;
 	}
 
 	

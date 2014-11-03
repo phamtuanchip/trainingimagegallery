@@ -1,6 +1,5 @@
 package training.imagegallery.action;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -11,7 +10,6 @@ import training.imagegallery.DAOImpl.ImageDAOImpl;
 import training.imagegallery.form.ImageForm;
 import training.imagegallery.model.Category;
 import training.imagegallery.model.Image;
-
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -38,18 +36,24 @@ public class ImageUpdateAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String UpdateImage() throws FileNotFoundException{
+	public String UpdateImage(){
 		try{
-		System.out.println("hello" + category_name);
 		imageForm.setCategory_id(categoryDAOImpl.getCategory(category_name).getId());
-		System.out.println("hello1" + imageForm.getCategory_id());
 		imageDAOImpl.updateImage(imageForm);
+		if(imageForm.getFile() != null){
+			imageDAOImpl.updateFileImage(imageForm.getId(), imageForm.getFile());
+			return SUCCESS;
+		}else{
 		return SUCCESS;
+		}
 		}catch (Exception e) {
+			System.out.println(e.getMessage());
 			// TODO: handle exception
 			return ERROR;
 		}
 	}
+	
+
 	public ImageForm getImageForm() {
 		return imageForm;
 	}
@@ -93,5 +97,4 @@ public class ImageUpdateAction extends ActionSupport {
 	public void setCategoryImage(Category categoryImage) {
 		this.categoryImage = categoryImage;
 	}
-
 }

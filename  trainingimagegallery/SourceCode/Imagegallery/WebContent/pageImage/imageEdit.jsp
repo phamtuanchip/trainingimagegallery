@@ -16,6 +16,7 @@
 			<tr>
 				<td><s:text name="Image Name" ></s:text></td>
 				<td><s:textfield name="imageForm.img_name"  value="%{image.img_name}" ></s:textfield></td>
+				<s:hidden name="imageForm.id" value="%{image.id}" ></s:hidden>
 			</tr>
 			<tr>
 				<td><s:text name="Description" ></s:text></td>
@@ -27,7 +28,7 @@
 			</tr>
 			<tr>
 				<td><s:text name="Category" ></s:text></td>
-				<td><s:select list="listCategory" name="category_name" listValue="name" listKey="id" value="%{name}" headerKey="%{categoryImage.name}"  headerValue="%{categoryImage.name}" ></s:select></td>
+				<td><s:select list="listCategory" name="category_name" listValue="name" listKey="name" value="%{name}" headerKey="%{categoryImage.name}"  headerValue="%{categoryImage.name}" ></s:select></td>
 			</tr>
 			<tr>
 				<td></td>
