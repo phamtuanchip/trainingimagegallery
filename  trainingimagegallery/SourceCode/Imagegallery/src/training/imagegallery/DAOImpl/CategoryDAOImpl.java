@@ -33,7 +33,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	public void insertCategory(String name, String description) {
 		// TODO Auto-generated method stub
 		final int id = getSequence();
-		String SQL ="INSERT INTO category_img VALUES(?,?,?,TO_DATE (SYSDATE,'DD-MON-YYYY'))";
+		String SQL ="INSERT INTO category_img VALUES(?,?,?, TO_CHAR(SYSDATE,'DD-MON-YYYY'))";
 		jdbcTemplate.update(SQL, id , name, description);
 	}
 

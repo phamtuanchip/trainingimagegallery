@@ -49,7 +49,7 @@ public class ImageDAOImpl implements ImageDAO {
 		// TODO Auto-generated method stub
 		 
 		 final int id = getSquence();
-		String SQL = "INSERT INTO store_img(img_no,img_name,img_description,img_date_create,img_user_upload,category_id) VALUES(?,?,?,TO_DATE (SYSDATE,'DD-MON-YYYY'),?,?)";
+		String SQL = "INSERT INTO store_img(img_no,img_name,img_description,img_date_create,img_user_upload,category_id) VALUES(?,?,?, TO_CHAR(SYSDATE,'DD-MON-YYYY'),?,?)";
 		jdbcTemplate.update(SQL,id , image.getImg_name(),
 				image.getImg_description(), image.getImg_user_upload(), image.getCategory_id());
 				updateFileImage(id, image.getFile());	
