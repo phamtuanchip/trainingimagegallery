@@ -1,9 +1,14 @@
 package training.imagegallery.model;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Date;
 
 
-public class Image {
+public class Image implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -303340490732991443L;
 	private int id;
 	private String img_name;
 	private String img_description;

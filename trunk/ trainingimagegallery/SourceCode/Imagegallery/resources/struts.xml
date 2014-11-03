@@ -3,6 +3,7 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
+	<constant name="struts.action.excludePattern" value="/rest/.*?" />
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.custom.i18n.resources" value="bundles.ApplicationResource" />
 	<constant name="struts.ui.theme" value="simple" />
@@ -62,4 +63,5 @@
 			<result name="success" type="redirect">ListImage</result>
 		</action>
 	</package>
+	
 </struts>
