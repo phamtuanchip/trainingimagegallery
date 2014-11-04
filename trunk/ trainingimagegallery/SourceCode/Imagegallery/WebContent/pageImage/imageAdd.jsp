@@ -21,15 +21,15 @@
 		<table border="0" align="center">
 			<tr>
 				<td><s:text name="Image Name" ></s:text></td>
-				<td><s:textfield name="imageForm.img_name"  ></s:textfield></td>
+				<td><s:textfield name="imageForm.img_name"></s:textfield></td>
 			</tr>
 			<tr>
 				<td><s:text name="Description" ></s:text></td>
-				<td><s:textarea name="imageForm.img_description" ></s:textarea></td>
+				<td><s:textarea name="imageForm.img_description" rows="2" cols="15"></s:textarea></td>
 			</tr>
 			<tr>
 				<td><s:text name="User Upload" ></s:text></td>
-				<td><s:textfield name="imageForm.img_user_upload" ></s:textfield></td>
+				<td><s:textfield name="imageForm.img_user_upload"></s:textfield></td>
 			</tr>
 			<tr>
 				<td><s:text name="Category" ></s:text></td>
@@ -39,8 +39,13 @@
 				<td><s:text name="upload Image" ></s:text></td>
 				<td><s:file name="imageForm.file" label="fileImage"></s:file></td>
 			</tr>
+			<tr>
+				<td><br><br><br></td>
+				<td><s:submit name="submit"></s:submit>
+				<button onclick="window.location.href='listImage'" >Back</button>
+				</td>
+			</tr>
 		</table>
-		<p align="center"><s:submit name="submit"></s:submit></p>
 		</s:form>
 		</div>
 		<!--  </div> -->

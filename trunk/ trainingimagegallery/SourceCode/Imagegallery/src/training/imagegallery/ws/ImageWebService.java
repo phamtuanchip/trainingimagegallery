@@ -1,6 +1,6 @@
 package training.imagegallery.ws;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
+import training.imagegallery.DAO.ImageDAO;
 import training.imagegallery.DAOImpl.ImageDAOImpl;
 import training.imagegallery.model.Image;
 
@@ -22,14 +22,15 @@ import training.imagegallery.model.Image;
 public class ImageWebService {
 	private ApplicationContext context = new ClassPathXmlApplicationContext(
 			"Beans.xml");
+	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
 	@GET
 	@Path("/get/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Image getUserInJSON(@PathParam("id") String id) {
+	public Image getUserInJSON(@PathParam("id") int id) {
 		
-		ImageDAOImpl imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
+		
 		System.out.println("test " + imageDAOImpl);
-		Image i = new Image();
+		Image i = imageDAOImpl.getImageById(id);
 		 
 		return i;
 
@@ -38,14 +39,9 @@ public class ImageWebService {
 	@GET
 	@Path("/search/{key}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Image> searchUserInJSON(@PathParam("key") String key) {
-		System.out.println("search " + key);
-		ArrayList<Image> arr = new ArrayList<Image>();
-		
-		Image i = new Image();
-		arr.add(i); 
-		
-		return arr;
+	public List<Image> searchUserInJSON(@PathParam("key") String key) {
+		List<Image> listImage=  imageDAOImpl.SearchImageFullText(key);
+		return listImage;
 
 	}
 
@@ -55,7 +51,7 @@ public class ImageWebService {
 	public Response createTrackInJSON(Image i) {
 
 		String result = "Image saved : " + i;
-		return Response.status(201).entity(result).build();
+		return Response.status(200).entity(result).build();
 		
 	}
 	

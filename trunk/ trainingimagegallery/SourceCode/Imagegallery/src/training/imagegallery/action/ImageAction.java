@@ -1,13 +1,12 @@
 package training.imagegallery.action;
 
-import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import training.imagegallery.DAO.ImageDAO;
 import training.imagegallery.DAOImpl.ImageDAOImpl;
 import training.imagegallery.model.Image;
 
@@ -19,12 +18,12 @@ public class ImageAction extends ActionSupport implements ServletRequestAware {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
-	private ImageDAOImpl imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
+	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
 	private Image image;
 	private int imageId;
 	private byte[] dataImage;
+	@SuppressWarnings("unused")
 	private HttpServletRequest servletRequest;
-	private File file;
 	public String execute(){
 		return SUCCESS;
 	}

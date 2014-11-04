@@ -2,6 +2,7 @@ package training.imagegallery.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Arrays;
 
 
 public class Image implements Serializable{
@@ -17,6 +18,7 @@ public class Image implements Serializable{
 	private String img_userUpLoad;
 	private byte [] image_file;
 	private int category_id;
+	private String category_name;
 	
 	// constructor
 	public Image() {
@@ -86,5 +88,27 @@ public class Image implements Serializable{
 		this.image_file = image_file;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Image [id=" + id + ", img_name=" + img_name
+				+ ", img_description=" + img_description + ", dateCreate="
+				+ dateCreate + ", img_size=" + img_size + ", img_userUpLoad="
+				+ img_userUpLoad + ", image_file="
+				+ Arrays.toString(image_file) + ", category_id=" + category_id
+				+ "]";
+	}
+
+
+	public String getCategory_name() {
+		return category_name;
+	}
+
+
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+	
+	
 
 }
