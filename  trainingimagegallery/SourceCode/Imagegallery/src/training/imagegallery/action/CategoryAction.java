@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import training.imagegallery.DAO.CategoryDAO;
 import training.imagegallery.DAOImpl.CategoryDAOImpl;
 import training.imagegallery.form.CategoryForm;
 import training.imagegallery.model.Category;
@@ -18,7 +19,7 @@ public class CategoryAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 			"Beans.xml");
-	private CategoryDAOImpl categoryDaoImpl = (CategoryDAOImpl) applicationContext
+	private CategoryDAO categoryDaoImpl = (CategoryDAOImpl) applicationContext
 			.getBean("CategoryDAO");
 	private CategoryForm categoryForm;
 	private List<Category> categoryList;

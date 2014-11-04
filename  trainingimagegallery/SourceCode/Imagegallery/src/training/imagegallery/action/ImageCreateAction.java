@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import training.imagegallery.DAO.CategoryDAO;
+import training.imagegallery.DAO.ImageDAO;
 import training.imagegallery.DAOImpl.CategoryDAOImpl;
 import training.imagegallery.DAOImpl.ImageDAOImpl;
 import training.imagegallery.form.ImageForm;
@@ -21,9 +23,9 @@ public class ImageCreateAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private ApplicationContext context = new ClassPathXmlApplicationContext(
 			"Beans.xml");
-	private ImageDAOImpl imageDAOImpl = (ImageDAOImpl) context
+	private ImageDAO imageDAOImpl = (ImageDAOImpl) context
 			.getBean("ImageDAO");
-	private CategoryDAOImpl categoryDAOImpl = (CategoryDAOImpl) context
+	private CategoryDAO categoryDAOImpl = (CategoryDAOImpl) context
 			.getBean("CategoryDAO");
 	private List<Category> listCategory;
 	private String category_name;

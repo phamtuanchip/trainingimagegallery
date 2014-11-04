@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<td><s:text name="Description" ></s:text></td>
-				<td><s:textarea name="imageForm.img_description" value="%{image.img_description}" ></s:textarea></td>
+				<td><s:textarea name="imageForm.img_description" value="%{image.img_description}" rows="2" cols="15"></s:textarea></td>
 			</tr>
 			<tr>
 				<td><s:text name="User Upload" ></s:text></td>
@@ -38,8 +38,16 @@
 				<td><s:text name="upload Image" ></s:text></td>
 				<td><s:file name="imageForm.file" label="fileImage"></s:file></td>
 			</tr>
+			<tr>
+				<td><br></td>
+			</tr>
+		<tr>
+				<td></td>
+				<td><s:submit name="submit"></s:submit>&nbsp;&nbsp;&nbsp;&nbsp;				
+				<button onclick="window.location.href='listImage'" >Back</button>
+				</td>
+		</tr>
 		</table>
-		<p align="center"><s:submit name="submit"></s:submit></p>
 		</s:form>
 		</div>			
 </html>
