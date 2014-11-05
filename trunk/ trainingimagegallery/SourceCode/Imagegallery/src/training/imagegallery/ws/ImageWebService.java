@@ -23,16 +23,16 @@ public class ImageWebService {
 	private ApplicationContext context = new ClassPathXmlApplicationContext(
 			"Beans.xml");
 	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
-	@GET
+	@GET	
 	@Path("/get/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Image getUserInJSON(@PathParam("id") int id) {
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	public Response getImageObj(@PathParam("id") int id) {
 		
 		
 		System.out.println("test " + imageDAOImpl);
 		Image i = imageDAOImpl.getImageById(id);
 		 
-		return i;
+		return Response.ok(i.getImage_file(), MediaType.APPLICATION_OCTET_STREAM).build();
 
 	}
 	

@@ -24,7 +24,7 @@ public class ImageListAction extends ActionSupport {
 	private ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
 	private CategoryDAO categoryDAOImpl = (CategoryDAOImpl)context.getBean("CategoryDAO");
-	private List<Image> listImage;
+	private List<Image> listImage, listImage1;
 	private List<Category> listCategory;
 	
 	public String listImage() throws SQLException{
@@ -33,6 +33,11 @@ public class ImageListAction extends ActionSupport {
 		listCategory = categoryDAOImpl.listCategory();
 		return SUCCESS;
 	}
+	public String redirectToSlideShow(){
+		listImage1 =imageDAOImpl.listImage();
+		return SUCCESS;
+	}
+	
 	
 	public List<Image> getListImage() {
 		return listImage;
@@ -47,5 +52,11 @@ public class ImageListAction extends ActionSupport {
 
 	public void setListCategory(List<Category> listCategory) {
 		this.listCategory = listCategory;
+	}
+	public List<Image> getListImage1() {
+		return listImage1;
+	}
+	public void setListImage1(List<Image> listImage1) {
+		this.listImage1 = listImage1;
 	}
 }

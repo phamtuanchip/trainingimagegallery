@@ -6,13 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.support.SqlLobValue;
@@ -44,7 +42,7 @@ public class ImageDAOImpl implements ImageDAO {
 	@Override
 	public List<Image> listImage() {
 		// TODO Auto-generated method stub
-		String SQL = "SELECT*FROM store_img";
+		String SQL = "SELECT*FROM store_img ORDER BY img_no";
 		List<Image> listImage = jdbcTemplate.query(SQL, new ImageMapper());
 		return listImage;
 	}
@@ -59,7 +57,9 @@ public class ImageDAOImpl implements ImageDAO {
 		jdbcTemplate.update(SQL, id, image.getImg_name(),
 				image.getImg_description(), image.getImg_user_upload(),
 				image.getCategory_id());
+		if(image.getFile() != null){
 		updateFileImage(id, image.getFile());
+		}
 
 	}
 
@@ -141,7 +141,7 @@ public class ImageDAOImpl implements ImageDAO {
 		param.addValue("key", finalKey);
 		List<Image> listImageSearch = new ArrayList<Image>();
 		NamedParameterJdbcTemplate nameparameterJDBCTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
-		String SQL = "SELECT img_name, img_description,img_date_create, img_no, img_size, img_user_upload, cat_name FROM STORE_IMG INNER JOIN CATEGORY_IMG ON category_id = id WHERE img_name LIKE :key OR img_description LIKE :key OR img_date_create LIKE :key OR img_user_upload LIKE :key OR cat_name LIKE :key ";
+		String SQL = "SELECT img_name, img_description,img_date_create, img_no, img_size, img_user_upload, cat_name FROM STORE_IMG INNER JOIN CATEGORY_IMG ON category_id = id WHERE img_name LIKE :key OR img_description LIKE :key OR img_date_create LIKE :key OR img_user_upload LIKE :key OR cat_name LIKE :key ORDER BY img_no ";
 		listImageSearch = nameparameterJDBCTemplate.query(SQL, param, new ImageMapperNotImage());
 		return listImageSearch;
 	}

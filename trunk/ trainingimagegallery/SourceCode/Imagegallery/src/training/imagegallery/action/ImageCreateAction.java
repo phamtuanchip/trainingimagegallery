@@ -31,6 +31,7 @@ public class ImageCreateAction extends ActionSupport {
 	private String category_name;
 	private ImageForm imageForm;
 	private File file;
+	private String error, error2, error3;
 	
 	
 	// action redirect to form Add Image
@@ -42,16 +43,33 @@ public class ImageCreateAction extends ActionSupport {
 	// action save image in to database
 	public String saveImage() throws Exception {
 		// get category id in select box
+		boolean check = true;
+			if(imageForm.getImg_name() == null || imageForm.getImg_name().trim().equals("")){
+				addFieldError("ImageName","The name is required");
+				setError(getText("The name is required"));
+				check = false;
+			}
+			if(imageForm.getImg_user_upload() == null || imageForm.getImg_user_upload().trim().equals("")){
+				addFieldError("UserUpload", "The userUpload is required");
+				setError2(getText("The UserUpload is required"));
+				check = false;
+			}
+			if(check == false){
+				return INPUT;
+			}
+		
 		try{
+		
 		imageForm.setCategory_id(categoryDAOImpl.getCategory(category_name)
 				.getId());
 		imageDAOImpl.insertImage(imageForm);
 		return SUCCESS;
 		}catch (Exception e) {
 			// TODO: handle exception
-			return ERROR;
+			return INPUT;
 		}
 	}
+	
 
 	// getter and setter
 	public List<Category> getListCategory() {
@@ -83,5 +101,29 @@ public class ImageCreateAction extends ActionSupport {
 
 	public void setFile(File file) {
 		this.file = file;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public String getError2() {
+		return error2;
+	}
+
+	public void setError2(String error2) {
+		this.error2 = error2;
+	}
+
+	public String getError3() {
+		return error3;
+	}
+
+	public void setError3(String error3) {
+		this.error3 = error3;
 	}
 }

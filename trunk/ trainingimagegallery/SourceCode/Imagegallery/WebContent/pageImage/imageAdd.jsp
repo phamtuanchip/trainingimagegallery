@@ -21,7 +21,9 @@
 		<table border="0" align="center">
 			<tr>
 				<td><s:text name="Image Name" ></s:text></td>
-				<td><s:textfield name="imageForm.img_name"></s:textfield></td>
+				<td><s:textfield name="imageForm.img_name" label="ImageName"></s:textfield>
+				<s:label style="color: red; font-style: italic;" name="error"></s:label>
+				</td>
 			</tr>
 			<tr>
 				<td><s:text name="Description" ></s:text></td>
@@ -29,11 +31,14 @@
 			</tr>
 			<tr>
 				<td><s:text name="User Upload" ></s:text></td>
-				<td><s:textfield name="imageForm.img_user_upload"></s:textfield></td>
+				<td><s:textfield name="imageForm.img_user_upload" label="UserUpload"></s:textfield>
+				<s:label style="color: red; font-style: italic;" name="error"></s:label>
+				</td>
 			</tr>
 			<tr>
 				<td><s:text name="Category" ></s:text></td>
-				<td><s:select list="listCategory" name="category_name" listValue="name" listKey="name" value="%{name}" headerKey="-1" headerValue="--select item--" ></s:select></td>
+				<td><s:select list="listCategory" name="category_name" listValue="name" listKey="name" value="%{name}" headerKey="-1" headerValue="--select item--" ></s:select>
+				</td>
 			</tr>
 			<tr>
 				<td><s:text name="upload Image" ></s:text></td>
