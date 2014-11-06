@@ -8,9 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>list Image</title>
 </head>
-<link type="text/css" rel="stylesheet" href="css/stylePaging.css"/>
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
+<!-- <link type="text/css" rel="stylesheet" href="css/stylePaging.css"/> -->
 <script src="script/jquery-1.11.1.min.js"></script>
-
+ <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -27,45 +28,61 @@ $(document).ready(function() {
 			timeout: 60000
 			});
 		
-	}); 
+	});
+	
 	function callback(data){
-		$("#db_table").children().remove();
-		$("#db_table").append('<thead><tr><td>ID</td><td>Name</td><td>Description</td><td>Date Create</td><td>size</td><td>User Update</td><td>Category</td><td>image</td><td>Manage</td>s</tr></thead><tbody>');
+		console.log("back");
+		$("#db_table").DataTable().fnClearTable();
 		$.each(data, function(index, value) {
-			console.log(value.id);
-			$("#db_table").append('<tr><td> ' 
+	/*	$("#db_table").append('<tr><td> ' 
 		+(index +1) + '</td><td>'+ value.img_name 
 		+'</td><td>'+ value.img_description +'</td><td>'+ value.dateCreate 
 		+'</td><td>'+ value.img_size +'</td><td>'+ value.img_userUpLoad 
 		+'</td><td> '+  value.category_name + '</td><td><img width="60" height="60" src=" /Imagegallery/imageAction.action?imageId='
 		+ value.id +'"></td><td><a href="redirectToImageUpdateForm?imageId='
 		+ value.id +'">Edit</a>||<a href="deleteImage?imageId='+ value.id +'">Delete</a></td></tr>');
+	*/	
+		$("#db_table").DataTable().fnAddData([
+				index + 1,
+				value.img_name,
+				value.img_description,
+				value.dateCreate,
+				value.img_size,
+				value.img_userUpLoad,
+				value.category_name,
+				'<img width="100" height="100" src="/Imagegallery/imageAction.action?imageId=' + value.id  + '">',
+				'<a href="redirectToImageUpdateForm?imageId='
+					+ value.id +'">Edit</a>||<a href="deleteImage?imageId='+ value.id +'">Delete</a>'
+				                		
+		]);	
 		});
-		$("#db_table").append('</tbody>');
-	}	
+	//	$("#db_table").append('</tbody>');
+		}
+		/*$("#db_table").DataTable({
+			"aaData": data,
+			"aocolumns":[
+				{"mData": "img_name"},
+				{"mData": "img_description"},
+				{"mData": "dateCreate"},
+				{"mData": "img_size"},
+				{"mData": "img_userUpLoad"},
+			],
+			"aoColumnDefs": [{
+					"aTargets":[7],
+					"bSortable" : false,
+					"mRender": function( img_no, type, full){
+								return '<img width="60" height="60" src=" /Imagegallery/imageAction.action?imageId=' + img_no;
+						}
+					
+				}
+				
+			  ]
+		"bDestroy": true
+		});*/
+		
+		
 	
-	$('table.paginated').each(function() {
-	    var currentPage = 0;
-	    var numPerPage = 5;
-	    var $table = $(this);
-	    $table.bind('repaginate', function() {
-	        $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
-	    });
-	    $table.trigger('repaginate');
-	    var numRows = $table.find('tbody tr').length;
-	    var numPages = Math.ceil(numRows / numPerPage);
-	    var $pager = $('<div class="pager"></div>');
-	    for (var page = 0; page < numPages; page++) {
-	        $('<span class="page-number"></span>').text(page + 1 ).bind('click', {
-	            newPage: page
-	        }, function(event) {
-	            currentPage = event.data['newPage'];
-	            $table.trigger('repaginate');
-	            $(this).addClass('active').siblings().removeClass('active');
-	        }).appendTo($pager).addClass('clickable');
-	    }
-	    $pager.insertBefore($table).find('span.page-number:first').addClass('active');
-	});
+	
 	 
 	
 
@@ -95,18 +112,19 @@ $(document).ready(function() {
 				<display:column  property="img_userUpLoad" title="User Upload" />
 			</display:table>
 		 -->
-		<table class="paginated" border="1" cellpadding="2" cellspacing="2" id="db_table">
+		 <div id="table">
+		<table  id="db_table">
 		<thead>
 		<tr>
-			<td>ID</td>
-			<td>Name</td>
-			<td>Description</td>
-			<td>Date Create</td>
-			<td>size</td>
-			<td>User Update</td>
-			<td>Category</td>
-			<td>image</td>
-			<td>Manage</td>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Date Create</th>
+			<th>Size</th>
+			<th>User Update</th>
+			<th>Category</th>
+			<th>Image</th>
+			<th>Manage</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -124,14 +142,18 @@ $(document).ready(function() {
 			</s:if>
 			</s:iterator>
 			<s:hidden ></s:hidden>
-			<td><img height="60" width="60" src=" <s:url action='imageAction?imageId=%{#image.id}'/>"/></td>
+			<td><img height="100" width="100" src=" <s:url action='imageAction?imageId=%{#image.id}'/>"/></td>
 			<td><a href="redirectToImageUpdateForm?imageId=<s:property value="id"/>" >Edit</a>||<a href="deleteImage?imageId=<s:property value="id"/>" >Delete</a></td>
 		</tr>
 		</s:iterator>
 		</tbody>
 		</table>
-		<br>
-		<br>
+		</div>
+		 <script>
+ 			 $(function(){
+  				  $("#db_table").dataTable();	
+  	 		})
+  		</script>
 	</div>
 </body>
 </html>
