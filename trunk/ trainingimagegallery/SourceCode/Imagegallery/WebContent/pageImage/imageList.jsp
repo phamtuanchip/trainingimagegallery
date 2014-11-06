@@ -50,7 +50,7 @@ $(document).ready(function() {
 				value.img_size,
 				value.img_userUpLoad,
 				value.category_name,
-				'<img width="100" height="100" src="/Imagegallery/imageAction.action?imageId=' + value.id  + '">',
+				'<img width="80" height="80" src="/Imagegallery/imageAction.action?imageId=' + value.id  + '">',
 				'<a href="redirectToImageUpdateForm?imageId='
 					+ value.id +'">Edit</a>||<a href="deleteImage?imageId='+ value.id +'">Delete</a>'
 				                		
@@ -142,7 +142,7 @@ $(document).ready(function() {
 			</s:if>
 			</s:iterator>
 			<s:hidden ></s:hidden>
-			<td><img height="100" width="100" src=" <s:url action='imageAction?imageId=%{#image.id}'/>"/></td>
+			<td><img height="80" width="80" src=" <s:url action='imageAction?imageId=%{#image.id}'/>"/></td>
 			<td><a href="redirectToImageUpdateForm?imageId=<s:property value="id"/>" >Edit</a>||<a href="deleteImage?imageId=<s:property value="id"/>" >Delete</a></td>
 		</tr>
 		</s:iterator>
