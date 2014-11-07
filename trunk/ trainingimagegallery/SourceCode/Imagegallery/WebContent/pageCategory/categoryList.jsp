@@ -8,21 +8,51 @@
 <title>List Category</title>
 </head>
 <body>
+	<s:form action="CategoryAdd" >
+	<br><br><br>
+	<table border="0" align="center" >
+	<tr>
+	<td><s:text name="Category Name:"></s:text></td>
+	<td><s:textfield name="categoryForm.name" ></s:textfield></td>
+	</tr>
+	<tr>
+	<td><s:text name="Description:"></s:text></td>
+	<td><s:textarea name="categoryForm.description" rows="2" cols="15"  ></s:textarea></td>
+	</tr>
+	<tr>
+	<td>
+	<br>
+	<br>
+	</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><s:submit name="sumbmit"></s:submit>
+		<a href="ListImage"><input type="button" value="Back to List Image"/></a></td>
+	</tr>
+	</table>
+	</s:form>
+	
+	<br><br><br><br>
 	<table align="center" border="1">
+	<thead>
 		<tr>
-			<td>Id</td>
-			<td>Name</td>
-			<td>Description</td>
-			<td>date Create</td>
+			<th>STT</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Date Create</th>
 		</tr>
-		<s:iterator value="categoryList">
+		</thead>
+		<tbody>
+		<s:iterator value="categoryList" status="status">
 		<tr>
-			<td><s:property value="id" /></td>
+			<td><s:property value="%{#status.count}" /></td>
 			<td><s:property value="name" /></td>
 			<td><s:property value="description" /></td>
 			<td><s:property value="dateCreate" /></td>
 		</tr>
 		</s:iterator>
+		</tbody>
 	</table>
 	
 </body>

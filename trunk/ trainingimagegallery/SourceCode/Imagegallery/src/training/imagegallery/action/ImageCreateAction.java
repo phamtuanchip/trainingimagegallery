@@ -28,7 +28,6 @@ public class ImageCreateAction extends ActionSupport {
 	private CategoryDAO categoryDAOImpl = (CategoryDAOImpl) context
 			.getBean("CategoryDAO");
 	private List<Category> listCategory;
-	private String category_name;
 	private ImageForm imageForm;
 	private File file;
 	private String error, error2, error3;
@@ -46,22 +45,23 @@ public class ImageCreateAction extends ActionSupport {
 		boolean check = true;
 			if(imageForm.getImg_name() == null || imageForm.getImg_name().trim().equals("")){
 				addFieldError("ImageName","The name is required");
-				setError(getText("The name is required"));
+				setError(getText("Thse name is required"));
 				check = false;
 			}
 			if(imageForm.getImg_user_upload() == null || imageForm.getImg_user_upload().trim().equals("")){
 				addFieldError("UserUpload", "The userUpload is required");
 				setError2(getText("The UserUpload is required"));
 				check = false;
+			}if(imageForm.getCategory_id() == -1){
+				addFieldError("Category", "The Category is required");
+				setError3(getText("The Category is required"));
+				check = false;
 			}
+			
 			if(check == false){
 				return INPUT;
 			}
-		
 		try{
-		
-		imageForm.setCategory_id(categoryDAOImpl.getCategory(category_name)
-				.getId());
 		imageDAOImpl.insertImage(imageForm);
 		return SUCCESS;
 		}catch (Exception e) {
@@ -78,14 +78,6 @@ public class ImageCreateAction extends ActionSupport {
 
 	public void setListCategory(List<Category> listCategory) {
 		this.listCategory = listCategory;
-	}
-
-	public String getCategory_name() {
-		return category_name;
-	}
-
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
 	}
 
 	public ImageForm getImageForm() {

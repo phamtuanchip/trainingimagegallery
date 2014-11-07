@@ -26,21 +26,28 @@ public class ImageUpdateAction extends ActionSupport {
 	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
 	private Image image;
 	private ImageForm imageForm;
-	private int imageId;
-	private String category_name;
+	private Integer imageId;
 	private List<Category> listCategory;
 	private Category categoryImage;
+	private String error, error2, error3;
 	
 	public String redirectToFormEdit(){
-		setListCategory(categoryDAOImpl.listCategory());
+		listCategory =categoryDAOImpl.listCategory();
 		image =imageDAOImpl.getImageById(imageId);
+		int i = 0;
+		for(Category cate : listCategory){
+			if(cate.getId() == image.getCategory_id()){
+				break;
+			}
+			i = i +1;
+		}
+		listCategory.remove(i);
 		categoryImage = categoryDAOImpl.listCategoryById(image.getCategory_id());
 		return SUCCESS;
 	}
 	
 	public String UpdateImage(){
 		try{
-		imageForm.setCategory_id(categoryDAOImpl.getCategory(category_name).getId());
 		imageDAOImpl.updateImage(imageForm);
 		if(imageForm.getFile() != null){
 			imageDAOImpl.updateFileImage(imageForm.getId(), imageForm.getFile());
@@ -51,9 +58,9 @@ public class ImageUpdateAction extends ActionSupport {
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 			// TODO: handle exception
-			return ERROR;
+			return INPUT;
 		}
-	}
+		}
 	
 
 	public ImageForm getImageForm() {
@@ -77,19 +84,14 @@ public class ImageUpdateAction extends ActionSupport {
 	public void setListCategory(List<Category> listCategory) {
 		this.listCategory = listCategory;
 	}
-	public int getImageId() {
+	
+	
+	public Integer getImageId() {
 		return imageId;
 	}
-	public void setImageId(int imageId) {
+
+	public void setImageId(Integer imageId) {
 		this.imageId = imageId;
-	}
-
-	public String getCategory_name() {
-		return category_name;
-	}
-
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
 	}
 
 	public Category getCategoryImage() {
@@ -98,5 +100,29 @@ public class ImageUpdateAction extends ActionSupport {
 
 	public void setCategoryImage(Category categoryImage) {
 		this.categoryImage = categoryImage;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public String getError2() {
+		return error2;
+	}
+
+	public void setError2(String error2) {
+		this.error2 = error2;
+	}
+
+	public String getError3() {
+		return error3;
+	}
+
+	public void setError3(String error3) {
+		this.error3 = error3;
 	}
 }
