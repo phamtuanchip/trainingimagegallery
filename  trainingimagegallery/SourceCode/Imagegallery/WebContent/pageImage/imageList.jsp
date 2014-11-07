@@ -98,6 +98,7 @@ $(document).ready(function() {
 				<td><input id="button_search"  type="button" name="button_Search" value="Search" /></td>
 				<td><button onclick="window.location.href='redirectToSlideShow'" >SlideShow</button></td>
 				<td><button onclick="window.location.href='redirectImageCreateForm'" >Add Image</button></td>
+				<td><button onclick="window.location.href='redirectToCategoryAdd'" >Add Category</button></td>
 			</tr>
 		</table>
 		<br><br>

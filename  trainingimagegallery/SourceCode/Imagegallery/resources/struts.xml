@@ -8,7 +8,6 @@
 	<constant name="struts.custom.i18n.resources" value="bundles.ApplicationResource" />
 	<constant name="struts.ui.theme" value="simple" />
 	
-	
 	<package name="default" namespace="/" extends="struts-default">
 	<!-- define result -->
 	<result-types>
@@ -16,11 +15,14 @@
 	</result-types>
 	<!-- define action -->
 		<action name="redirectToCategoryAdd" class="training.imagegallery.action.CategoryAction" method="rerdirectToCategoryAdd" >
-			<result name="success" >/pageCategory/categoryAdd.jsp</result>
+			<result name="success" type="redirect" >categoryList</result>
+			<result name="input" type="chain" >categoryList</result>
 		</action>
-		<action name="CategoryAdd" class="training.imagegallery.action.CategoryAction"
-			method="categoryAdd">
+		<action name="CategoryAdd" class="training.imagegallery.action.CategoryAction" method="categoryAdd">
 			<result name="success" type="redirect">categoryList</result>
+		</action>
+		<action name="redirectCategoryUpdate" class="training.imagegallery.action.CategoryAction" method="redirectCategoryUpdate">
+			<result name="success" >/pageCategory/categoryEdit.jsp</result>
 		</action>
 		<action name="categoryList" class="training.imagegallery.action.CategoryAction"
 			method="categoryList">
@@ -31,15 +33,19 @@
 		</action>
 		<action name="SaveImageInfo" class="training.imagegallery.action.ImageCreateAction" method="saveImage" >
 			<result name="success" type="redirect">ListImage</result>
-			<result name="error" >/pageError/error.jsp</result>
+			<result name="input"  type="chain" >redirectImageCreateForm</result>
 			<interceptor-ref name="defaultStack">
 				<param name="maximumSize">1048576</param>
 				<param name="allowedTypes">image/jpeg,image/png,image/gif,image/pjpeg</param>
 			</interceptor-ref>	
 		</action>
+		<action name="redirectToSlideShow" class="training.imagegallery.action.ImageListAction" method="redirectToSlideShow" >
+			<result name="success" >/pageImage/imageSlideShow.jsp</result>
+		</action>
 		<action name="ListImage" class="training.imagegallery.action.ImageListAction" method="listImage" >
 			<result name="success">/pageImage/imageList.jsp</result>
 		</action>
+		
 		<action name="imageAction" class="training.imagegallery.action.ImageAction" method="">
 			<result name="success" type="ImageResult"></result>
 		</action>
@@ -51,7 +57,10 @@
 		<action name="updateImage" class="training.imagegallery.action.ImageUpdateAction"
 			method="UpdateImage">
 			<result name="success" type="redirect">ListImage</result>
-			<result name="error">/pageError/error.jsp</result>
+			<result name="input" type="chain">
+				<param name="actionName">redirectToImageUpdateForm</param>
+				<param name="imageId">%{imageId}</param>
+			</result>
 			 <interceptor-ref name="defaultStack">
 				<param name="maximumSize">1048576</param>
 				<param name="allowedTypes">image/jpeg,image/png,image/gif,image/pjpeg</param>

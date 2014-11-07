@@ -23,13 +23,18 @@ public class CategoryAction extends ActionSupport {
 			.getBean("CategoryDAO");
 	private CategoryForm categoryForm;
 	private List<Category> categoryList;
+	private Integer categoryId;
+	private Category category;
 	public String rerdirectToCategoryAdd(){
-		
 		return SUCCESS;
 	}
-	
+
 	public String categoryAdd() throws Exception {
 		categoryDaoImpl.insertCategory(categoryForm.getName(), categoryForm.getDescription());
+		return SUCCESS;
+	}
+	public String redirectCategoryUpdate(){
+		category = categoryDaoImpl.listCategoryById(categoryId);
 		return SUCCESS;
 	}
 	
@@ -56,5 +61,22 @@ public class CategoryAction extends ActionSupport {
 	}
 	public void setCategoryForm(CategoryForm categoryForm) {
 		this.categoryForm = categoryForm;
+	}
+
+	
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 }

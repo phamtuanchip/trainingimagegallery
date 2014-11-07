@@ -86,6 +86,7 @@
 				<span class="msg_loading"></span><!-- show when next thumb wrapper loading -->
 				</div>
 			</div>
+			<p align="center"><button onclick="window.location.href='ListImage'">Back</button></p>
 			</div>	
         <!-- The JavaScript -->
         <script type="text/javascript" src="script/jquery-1.11.1.min.js"></script>

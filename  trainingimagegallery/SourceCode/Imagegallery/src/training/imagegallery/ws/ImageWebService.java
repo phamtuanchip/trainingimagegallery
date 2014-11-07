@@ -27,8 +27,6 @@ public class ImageWebService {
 	@Path("/get/{id}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public Response getImageObj(@PathParam("id") int id) {
-		
-		
 		System.out.println("test " + imageDAOImpl);
 		Image i = imageDAOImpl.getImageById(id);
 		 
