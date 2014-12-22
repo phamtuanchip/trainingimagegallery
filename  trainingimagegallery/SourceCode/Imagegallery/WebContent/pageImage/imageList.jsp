@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -102,17 +101,6 @@ $(document).ready(function() {
 			</tr>
 		</table>
 		<br><br>
-	<!-- 	<display:table id="studentTable" name="listImage" pagesize="5"
-				cellpadding="5px;" cellspacing="5px;"
-				style="margin-left:50px;margin-top:20px;" requestURI="">
-				<display:column property="id" title="ID" />
-				<display:column property="img_name" title="Name" />
-				<display:column property="img_description" title="Department" />
-				<display:column property="dateCreate" title="Cate Create" />
-				<display:column property="img_size" title="Size" />
-				<display:column  property="img_userUpLoad" title="User Upload" />
-			</display:table>
-		 -->
 		 <div id="table">
 		<table  id="db_table">
 		<thead>
@@ -137,12 +125,13 @@ $(document).ready(function() {
 			<td><s:property value="dateCreate" /></td>
 			<td><s:property value="img_size" /></td>
 			<td><s:property value="img_userUpLoad" /></td>
-		 	<s:iterator value="listCategory" var="category" >
+			<td><s:property value="category_name" /></td>
+		 <!-- 	<s:iterator value="listCategory" var="category" >
 			<s:if test="%{#image.category_id == #category.id}">
 			<td><s:property value="name" /></td>
 			</s:if>
 			</s:iterator>
-			<s:hidden ></s:hidden>
+			 -->
 			<td><img height="80" width="80" src=" <s:url action='imageAction?imageId=%{#image.id}'/>"/></td>
 			<td><a href="redirectToImageUpdateForm?imageId=<s:property value="id"/>" >Edit</a>||<a href="deleteImage?imageId=<s:property value="id"/>" >Delete</a></td>
 		</tr>

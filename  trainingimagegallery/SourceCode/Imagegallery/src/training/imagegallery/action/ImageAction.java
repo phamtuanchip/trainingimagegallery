@@ -3,12 +3,9 @@ package training.imagegallery.action;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import training.imagegallery.DAO.ImageDAO;
-import training.imagegallery.DAOImpl.ImageDAOImpl;
 import training.imagegallery.model.Image;
+import training.imagegallery.service.ImageService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -17,8 +14,8 @@ public class ImageAction extends ActionSupport implements ServletRequestAware {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
-	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
+//	private ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+//	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
 	private Image image;
 	private int imageId;
 	private byte[] dataImage;
@@ -28,9 +25,11 @@ public class ImageAction extends ActionSupport implements ServletRequestAware {
 		return SUCCESS;
 	}
 	public byte[] getMyImageInBytes(){
-			image = imageDAOImpl.getImageById(imageId);
-				dataImage = image.getImage_file();
-
+		ImageService imageService = new ImageService();
+		image = imageService.getImage(imageId);
+		dataImage = image.getImage_file();
+//			image = imageDAOImpl.getImageById(imageId);
+//				dataImage = image.getImage_file();
 		return dataImage;
 	}
 	@Override
@@ -61,6 +60,5 @@ public class ImageAction extends ActionSupport implements ServletRequestAware {
 	public void setImage(Image image) {
 		this.image = image;
 	}
-	
 	
 }

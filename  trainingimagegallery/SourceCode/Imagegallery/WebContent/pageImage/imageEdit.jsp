@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<td><s:text name="Category" ></s:text></td>
-				<td><s:select list="listCategory" name="imageForm.category_id" listValue="name" listKey="id" value="%{name}" headerKey="%{categoryImage.id}"  headerValue="%{categoryImage.name}" ></s:select>
+				<td><s:select list="listCategory" name="imageForm.category_id" listValue="name" listKey="id" value="%{name}" headerKey="%{image.category.id}"  headerValue="%{image.category.name}" ></s:select>
 				</td>
 			</tr>
 			<tr>

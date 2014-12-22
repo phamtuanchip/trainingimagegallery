@@ -17,30 +17,30 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import training.imagegallery.DAO.ImageDAO;
 import training.imagegallery.DAOImpl.ImageDAOImpl;
 import training.imagegallery.model.Image;
+import training.imagegallery.service.ImageService;
 
 @Path("/image")
 public class ImageWebService {
-	private ApplicationContext context = new ClassPathXmlApplicationContext(
-			"Beans.xml");
-	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
+//	private ApplicationContext context = new ClassPathXmlApplicationContext(
+//			"Beans.xml");
+//	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
+	private ImageService imageService;
 	@GET	
 	@Path("/get/{id}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public Response getImageObj(@PathParam("id") int id) {
-		System.out.println("test " + imageDAOImpl);
-		Image i = imageDAOImpl.getImageById(id);
-		 
+		imageService = new ImageService();
+		Image i = imageService.getImageEdit(id);
 		return Response.ok(i.getImage_file(), MediaType.APPLICATION_OCTET_STREAM).build();
-
 	}
 	
 	@GET
 	@Path("/search/{key}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Image> searchUserInJSON(@PathParam("key") String key) {
-		List<Image> listImage=  imageDAOImpl.SearchImageFullText(key);
+		imageService = new ImageService();
+		List<Image> listImage=  imageService.searchImageFullText(key);
 		return listImage;
-
 	}
 
 	@POST
