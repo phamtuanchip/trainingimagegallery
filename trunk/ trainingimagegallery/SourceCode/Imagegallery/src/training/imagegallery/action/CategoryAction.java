@@ -1,14 +1,15 @@
 package training.imagegallery.action;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import training.imagegallery.DAO.CategoryDAO;
-import training.imagegallery.DAOImpl.CategoryDAOImpl;
 import training.imagegallery.form.CategoryForm;
 import training.imagegallery.model.Category;
+import training.imagegallery.service.CategoryService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -19,18 +20,30 @@ public class CategoryAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 			"Beans.xml");
-	private CategoryDAO categoryDaoImpl = (CategoryDAOImpl) applicationContext
-			.getBean("CategoryDAO");
+	private CategoryDAO categoryDaoImpl = (CategoryDAO) applicationContext.getBean("CategoryDAO");
+	private CategoryService categoryservice ;
 	private CategoryForm categoryForm;
 	private List<Category> categoryList;
 	private Integer categoryId;
 	private Category category;
+	
 	public String rerdirectToCategoryAdd(){
 		return SUCCESS;
 	}
 
 	public String categoryAdd() throws Exception {
-		categoryDaoImpl.insertCategory(categoryForm.getName(), categoryForm.getDescription());
+		try{
+		category = new Category();
+		category.setName(categoryForm.getName());
+		category.setDescription(categoryForm.getDescription());
+		categoryservice = new CategoryService();
+		categoryservice.insertCategory(category);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		//categoryDaoImpl.insertCategory(category);
 		return SUCCESS;
 	}
 	public String redirectCategoryUpdate(){
@@ -43,7 +56,8 @@ public class CategoryAction extends ActionSupport {
 		return SUCCESS;
 	}
 	public String categoryList(){
-		categoryList = categoryDaoImpl.listCategory();
+		categoryservice = new CategoryService();
+		categoryList = categoryservice.listAllCategory();
 		System.out.println(categoryList.get(1).getName());
 		return SUCCESS;
 	}

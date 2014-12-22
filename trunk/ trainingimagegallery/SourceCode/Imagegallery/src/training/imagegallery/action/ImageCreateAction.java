@@ -12,6 +12,10 @@ import training.imagegallery.DAOImpl.CategoryDAOImpl;
 import training.imagegallery.DAOImpl.ImageDAOImpl;
 import training.imagegallery.form.ImageForm;
 import training.imagegallery.model.Category;
+import training.imagegallery.model.Image;
+import training.imagegallery.service.CategoryService;
+import training.imagegallery.service.ImageService;
+import training.imagegallery.util.TranferToByteArray;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -21,25 +25,30 @@ public class ImageCreateAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ApplicationContext context = new ClassPathXmlApplicationContext(
-			"Beans.xml");
-	private ImageDAO imageDAOImpl = (ImageDAOImpl) context
-			.getBean("ImageDAO");
-	private CategoryDAO categoryDAOImpl = (CategoryDAOImpl) context
-			.getBean("CategoryDAO");
+//	private ApplicationContext context = new ClassPathXmlApplicationContext(
+//			"Beans.xml");
+//	private ImageDAO imageDAOImpl = (ImageDAOImpl) context
+//			.getBean("ImageDAO");
+//	private CategoryDAO categoryDAOImpl = (CategoryDAOImpl) context
+//			.getBean("CategoryDAO");
 	private List<Category> listCategory;
 	private ImageForm imageForm;
+	private Image image;
 	private File file;
+	private ImageService imageService;
+	private CategoryService categoryService;
 	private String error, error2, error3;
 	
 	
 	// action redirect to form Add Image
 	public String redirectImageCreateForm() {
-		setListCategory(categoryDAOImpl.listCategory());
+		categoryService = new CategoryService();
+		listCategory = categoryService.listAllCategory();
 		return SUCCESS;
 	}
 	
 	// action save image in to database
+	@SuppressWarnings("null")
 	public String saveImage() throws Exception {
 		// get category id in select box
 		boolean check = true;
@@ -62,10 +71,21 @@ public class ImageCreateAction extends ActionSupport {
 				return INPUT;
 			}
 		try{
-		imageDAOImpl.insertImage(imageForm);
+			image = new Image();
+			image.setImg_name(imageForm.getImg_name());
+			image.setImg_description(imageForm.getImg_description());
+			image.setCategory_id(imageForm.getCategory_id());
+			image.setImg_size(String.valueOf(imageForm.getFile().length()/1024));
+			image.setImg_userUpLoad(imageForm.getImg_user_upload());
+			image.setImage_file(TranferToByteArray.ByteArray(imageForm.getFile()));
+			imageService = new ImageService();
+			imageService.insertImage(image);
+			//imageDAOImpl.insertImage(imageForm);
 		return SUCCESS;
 		}catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println(e.getMessage());
 			return INPUT;
 		}
 	}
@@ -117,5 +137,13 @@ public class ImageCreateAction extends ActionSupport {
 
 	public void setError3(String error3) {
 		this.error3 = error3;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }
