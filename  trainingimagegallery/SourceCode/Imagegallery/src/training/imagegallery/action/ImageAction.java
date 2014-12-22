@@ -3,7 +3,9 @@ package training.imagegallery.action;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import training.imagegallery.DAO.ImageDAO;
 import training.imagegallery.model.Image;
 import training.imagegallery.service.ImageService;
 
@@ -13,6 +15,9 @@ public class ImageAction extends ActionSupport implements ServletRequestAware {
 	/**
 	 * 
 	 */
+	@Autowired
+	ImageDAO serive ;
+	
 	private static final long serialVersionUID = 1L;
 //	private ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 //	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
@@ -26,7 +31,7 @@ public class ImageAction extends ActionSupport implements ServletRequestAware {
 	}
 	public byte[] getMyImageInBytes(){
 		ImageService imageService = new ImageService();
-		image = imageService.getImage(imageId);
+		image = serive.getImage(imageId);
 		dataImage = image.getImage_file();
 //			image = imageDAOImpl.getImageById(imageId);
 //				dataImage = image.getImage_file();
