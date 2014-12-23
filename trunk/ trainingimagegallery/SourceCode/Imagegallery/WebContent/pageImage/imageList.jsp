@@ -8,8 +8,10 @@
 <title>list Image</title>
 </head>
 <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css"/>
-<!-- <link type="text/css" rel="stylesheet" href="css/stylePaging.css"/> -->
+<link type="text/css" rel="stylesheet" href="css/bootstrap-responsive.min.css"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
 <script src="script/jquery-1.11.1.min.js"></script>
+<script src="script/bootstrap.min.js"></script>
  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 
@@ -89,7 +91,7 @@ $(document).ready(function() {
 </script>
 
 <body>
-	<div align="center">
+	<div align="center" class="flui">
 		<table border="0" >
 			<tr>
 				<td> Enter Text </td>

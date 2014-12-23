@@ -1,5 +1,7 @@
 package training.imagegallery.DAOMyBatis;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -11,6 +13,8 @@ import training.imagegallery.model.Image;
 import training.imagegallery.util.MybatisSessionFactory;
 
 public class ImageDAOMyBatis implements ImageDAO{
+	
+	@Override
 	public List<Image> listImage(){
 		SqlSession session = MybatisSessionFactory.openSession();
 		try{
@@ -21,6 +25,8 @@ public class ImageDAOMyBatis implements ImageDAO{
 		}
 		
 	}
+	
+	@Override
 	public Image getImage(int id){
 		SqlSession session = MybatisSessionFactory.openSession();
 		try{
@@ -32,48 +38,55 @@ public class ImageDAOMyBatis implements ImageDAO{
 		
 	}
 	
-	public List<Image> searchImageFullText(String key){
+	@Override
+	public List<Image> SearchImageFullText(String key){
 		SqlSession session = MybatisSessionFactory.openSession();
 		try{
 			ImageDAO imageDAO = session.getMapper(ImageDAO.class);
-			return imageDAO.searchImageFullText("%" + key.trim() + "%");
+			return imageDAO.SearchImageFullText("%" + key.trim() + "%");
 		}finally{
 			session.close();
 		}
 		
 	}
-	public Image getImageEdit(int id){
+	
+	@Override
+	public Image getImageById(int id) {
 		SqlSession session = MybatisSessionFactory.openSession();
 		try{
 			ImageDAO imageDAO = session.getMapper(ImageDAO.class);
-			return imageDAO.getImageEdit(id);
+			return imageDAO.getImageById(id);
 		}finally{
 			session.close();
 		}
 		
 	}
-	public int insertImage(Image image){
+	
+	public void insertImage(Image image) throws FileNotFoundException{
 		SqlSession session = MybatisSessionFactory.openSession();
 		try{
 			ImageDAO imageDAO = session.getMapper(ImageDAO.class);
-			int count = imageDAO.insertImage(image);
+			imageDAO.insertImage(image);
 			session.commit();
-			return count;
 		}finally{
 			session.close();
 		}
 	}
-	public int UpdateImage(Image image){
+	
+	@Override
+	public void updateImage(Image image) {
+		// TODO Auto-generated method stub
 		SqlSession session = MybatisSessionFactory.openSession();
 		try{
 			ImageDAO imageDAO = session.getMapper(ImageDAO.class);
-			int count = imageDAO.updateImage(image);
+			imageDAO.updateImage(image);
 			session.commit();
-			return count;
 		}finally{
 			session.close();
 		}
+		
 	}
+	
 	public void deleteImage(int id){
 		SqlSession session = MybatisSessionFactory.openSession();
 		try{
@@ -89,9 +102,24 @@ public class ImageDAOMyBatis implements ImageDAO{
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
-	public int updateImage(Image image) {
+	public void updateFileImage(int id, File file) throws FileNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	@Override
+	public List<Image> SearchImage(String name, String description,
+			String date, String user_Update, String category_Name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int getSquence() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 }

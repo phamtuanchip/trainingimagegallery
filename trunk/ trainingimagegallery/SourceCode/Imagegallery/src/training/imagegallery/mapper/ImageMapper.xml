@@ -31,7 +31,7 @@
 		SELECT FILE_IMG FROM STORE_IMG WHERE IMG_NO = #{id}
 	</select>
 	
-	<select  id="getImageEdit" parameterType="int" resultMap="getImageEdit" >
+	<select  id="getImageEdit" parameterType="int" resultMap="getImageById" >
 		SELECT a.IMG_NO,a.IMG_NAME,a.IMG_DESCRIPTION,a.IMG_DATE_CREATE,a.IMG_SIZE,a.IMG_USER_UPLOAD,a.CATEGORY_ID, b.ID, b.CAT_NAME 
 		FROM STORE_IMG a INNER JOIN CATEGORY_IMG b ON a.CATEGORY_ID = b.ID WHERE a.IMG_NO = #{id}
 	</select>
@@ -57,7 +57,7 @@
  		DELETE FROM STORE_IMG WHERE IMG_NO= #{id}
  	</delete>
  <!--  search Image -->
- 	<select id="searchImageFullText" parameterType="String" resultMap="ImageResult" >
+ 	<select id="SearchImageFullText" parameterType="String" resultMap="ImageResult" >
  		SELECT a.IMG_NO,a.IMG_NAME,a.IMG_DESCRIPTION,a.IMG_DATE_CREATE,a.IMG_SIZE,a.IMG_USER_UPLOAD,a.CATEGORY_ID, b.CAT_NAME     
 		FROM STORE_IMG a INNER JOIN CATEGORY_IMG b ON a.CATEGORY_ID = b.ID     
 		WHERE a.IMG_NAME LIKE #{key} OR a.IMG_DESCRIPTION LIKE #{key} OR a.IMG_DATE_CREATE LIKE #{key} 

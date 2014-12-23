@@ -36,29 +36,29 @@
 		<table border="0" align="center">
 			<tr>
 				<td><s:text name="Image Name" ></s:text></td>
-				<td><s:textfield name="imageForm.img_name" label="ImageName"></s:textfield>
+				<td><s:textfield name="image.img_name" label="ImageName"></s:textfield>
 				<s:label style="color: red; font-style: italic;" name="error"></s:label>
 				</td>
 			</tr>
 			<tr>
 				<td><s:text name="Description" ></s:text></td>
-				<td><s:textarea name="imageForm.img_description" rows="2" cols="15"></s:textarea></td>
+				<td><s:textarea name="image.img_description" rows="2" cols="15"></s:textarea></td>
 			</tr>
 			<tr>
 				<td><s:text name="User Upload" ></s:text></td>
-				<td><s:textfield name="imageForm.img_user_upload" label="UserUpload"></s:textfield>
+				<td><s:textfield name="image.img_userUpLoad" label="UserUpload"></s:textfield>
 				<s:label style="color: red; font-style: italic;" name="error2"></s:label>
 				</td>
 			</tr>
 			<tr>
 				<td><s:text name="Category" ></s:text></td>
-				<td><s:select list="listCategory" name="imageForm.category_id" listValue="name" listKey="id" value="%{name}" headerKey="-1" headerValue="--select item--" ></s:select>
+				<td><s:select list="listCategory" name="image.category_id" listValue="name" listKey="id" value="%{name}" headerKey="-1" headerValue="--select item--" ></s:select>
 				<s:label style="color: red; font-style: italic;" name="error3"></s:label>
 				</td>
 			</tr>
 			<tr>
 				<td><s:text name="upload Image" ></s:text></td>
-				<td><s:file name="imageForm.file" label="fileImage"></s:file></td>
+				<td><s:file name="image.file" label="fileImage"></s:file></td>
 			</tr>
 			<tr>
 				<td><br><br><br></td>

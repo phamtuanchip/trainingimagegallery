@@ -1,15 +1,14 @@
 package training.imagegallery.action;
 
-import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import training.imagegallery.DAO.CategoryDAO;
 import training.imagegallery.form.CategoryForm;
 import training.imagegallery.model.Category;
-import training.imagegallery.service.CategoryService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -18,10 +17,8 @@ public class CategoryAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-			"Beans.xml");
-	private CategoryDAO categoryDaoImpl = (CategoryDAO) applicationContext.getBean("CategoryDAO");
-	private CategoryService categoryservice ;
+	@Autowired
+	CategoryDAO categoryDAO;
 	private CategoryForm categoryForm;
 	private List<Category> categoryList;
 	private Integer categoryId;
@@ -36,8 +33,7 @@ public class CategoryAction extends ActionSupport {
 		category = new Category();
 		category.setName(categoryForm.getName());
 		category.setDescription(categoryForm.getDescription());
-		categoryservice = new CategoryService();
-		categoryservice.insertCategory(category);
+		categoryDAO.insertCategory(category);
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -46,19 +42,13 @@ public class CategoryAction extends ActionSupport {
 		//categoryDaoImpl.insertCategory(category);
 		return SUCCESS;
 	}
-	public String redirectCategoryUpdate(){
-		category = categoryDaoImpl.listCategoryById(categoryId);
-		return SUCCESS;
-	}
 	
 	public String categoryUpdate(){
 		
 		return SUCCESS;
 	}
 	public String categoryList(){
-		categoryservice = new CategoryService();
-		categoryList = categoryservice.listAllCategory();
-		System.out.println(categoryList.get(1).getName());
+		categoryList = categoryDAO.listCategory();
 		return SUCCESS;
 	}
 	

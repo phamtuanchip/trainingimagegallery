@@ -1,5 +1,6 @@
 package training.imagegallery.model;
 
+import java.io.File;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Date;
@@ -20,7 +21,7 @@ public class Image implements Serializable{
 	private String img_size;
 	private String img_userUpLoad;
 	private byte [] image_file;
-	private BLOB file;
+	private File file;
 	private int category_id;
 	private String category_name;
 	private Category category;
@@ -104,12 +105,12 @@ public class Image implements Serializable{
 	}
 
 
-	public BLOB getFile() {
+	public File getFile() {
 		return file;
 	}
 
 
-	public void setFile(BLOB file) {
+	public void setFile(File file) {
 		this.file = file;
 	}
 
