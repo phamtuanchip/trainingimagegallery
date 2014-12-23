@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import training.imagegallery.DAO.ImageDAO;
 import training.imagegallery.model.Image;
-import training.imagegallery.service.ImageService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -16,11 +15,9 @@ public class ImageAction extends ActionSupport implements ServletRequestAware {
 	 * 
 	 */
 	@Autowired
-	ImageDAO serive ;
+	ImageDAO imageDAO ;
 	
 	private static final long serialVersionUID = 1L;
-//	private ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
-//	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
 	private Image image;
 	private int imageId;
 	private byte[] dataImage;
@@ -30,8 +27,7 @@ public class ImageAction extends ActionSupport implements ServletRequestAware {
 		return SUCCESS;
 	}
 	public byte[] getMyImageInBytes(){
-		ImageService imageService = new ImageService();
-		image = serive.getImage(imageId);
+		image = imageDAO.getImage(imageId);
 		dataImage = image.getImage_file();
 //			image = imageDAOImpl.getImageById(imageId);
 //				dataImage = image.getImage_file();
