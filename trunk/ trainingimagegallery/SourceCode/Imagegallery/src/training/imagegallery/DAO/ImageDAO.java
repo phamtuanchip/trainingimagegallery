@@ -12,7 +12,7 @@ public interface ImageDAO {
 		public void setDataSource(DataSource dataSource);
 		public List<Image> listImage();
 		public Image getImage(int id );
-		public void insertImage( Image image ) throws FileNotFoundException ;
+		public void insertImage(Image image ) throws FileNotFoundException ;
 		public void updateImage(Image image);
 		public void deleteImage(int id);
 		public void updateFileImage(int id, File file) throws FileNotFoundException;

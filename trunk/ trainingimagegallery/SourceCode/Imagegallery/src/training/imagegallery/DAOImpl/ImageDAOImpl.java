@@ -44,7 +44,7 @@ public class ImageDAOImpl implements ImageDAO {
 		// TODO Auto-generated method stub
 		String SQL = "SELECT a.IMG_NO, a.IMG_NAME, a.IMG_DESCRIPTION, a.IMG_DATE_CREATE, a.IMG_SIZE, a.IMG_USER_UPLOAD, b.CAT_NAME " + 
 		              "FROM STORE_IMG a INNER  JOIN CATEGORY_IMG b ON a.CATEGORY_ID = b.ID  ";
-		List<Image> listImage = jdbcTemplate.query(SQL, new ImageMapper());
+		List<Image> listImage = jdbcTemplate.query(SQL, new ImageMapperNotImage());
 		return listImage;
 	}
 
@@ -82,13 +82,6 @@ public class ImageDAOImpl implements ImageDAO {
 
 	}
 
-	@Override
-	public Image getImageById(int id) {
-		// TODO Auto-generated method stub
-		String SQL = "SELECT*FROM store_img WHERE img_no=?";
-		return jdbcTemplate.queryForObject(SQL, new Object[] { id },
-				new ImageMapper());
-	}
 
 	@Override
 	public int getSquence() {
@@ -150,6 +143,16 @@ public class ImageDAOImpl implements ImageDAO {
 	@Override
 	public Image getImage(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		String SQL = "SELECT*FROM store_img WHERE img_no=?";
+		return jdbcTemplate.queryForObject(SQL, new Object[] { id },
+				new ImageMapperNotImage());
+	}
+
+	@Override
+	public Image getImageById(int id) {
+		// TODO Auto-generated method stub
+		String SQL = "SELECT*FROM store_img WHERE img_no=?";
+		return jdbcTemplate.queryForObject(SQL, new Object[] { id },
+				new ImageMapperNotImage());
 	}
 }

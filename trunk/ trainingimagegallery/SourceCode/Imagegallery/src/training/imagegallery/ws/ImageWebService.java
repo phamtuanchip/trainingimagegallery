@@ -11,26 +11,23 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import training.imagegallery.DAO.ImageDAO;
-import training.imagegallery.DAOImpl.ImageDAOImpl;
 import training.imagegallery.model.Image;
-import training.imagegallery.service.ImageService;
 
 @Path("/image")
 public class ImageWebService {
-//	private ApplicationContext context = new ClassPathXmlApplicationContext(
-//			"Beans.xml");
-//	private ImageDAO imageDAOImpl = (ImageDAOImpl) context.getBean("ImageDAO");
-	private ImageService imageService;
+	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("Beans.xml");
+	@Autowired
+	ImageDAO imageDAO = (ImageDAO) applicationContext.getBean("ImageDAO") ;
 	@GET	
 	@Path("/get/{id}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public Response getImageObj(@PathParam("id") int id) {
-		imageService = new ImageService();
-		Image i = imageService.getImageEdit(id);
+		Image i = imageDAO.getImage(id);
 		return Response.ok(i.getImage_file(), MediaType.APPLICATION_OCTET_STREAM).build();
 	}
 	
@@ -38,8 +35,7 @@ public class ImageWebService {
 	@Path("/search/{key}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Image> searchUserInJSON(@PathParam("key") String key) {
-		imageService = new ImageService();
-		List<Image> listImage=  imageService.searchImageFullText(key);
+		List<Image> listImage=  imageDAO.SearchImageFullText(key);
 		return listImage;
 	}
 

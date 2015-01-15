@@ -3,6 +3,8 @@ package training.imagegallery.action;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import training.imagegallery.DAO.CategoryDAO;
 import training.imagegallery.DAO.ImageDAO;
@@ -17,11 +19,12 @@ public class ImageUpdateAction extends ActionSupport {
 	/**
 	 * 
 	 */
+	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("Beans.xml");
 	@Autowired
-	ImageDAO imageDAO;
+	ImageDAO imageDAO = (ImageDAO) applicationContext.getBean("ImageDAO") ;
 	
 	@Autowired
-	CategoryDAO categoryDAO;
+	CategoryDAO categoryDAO = (CategoryDAO) applicationContext.getBean("CategoryDAO") ;
 	
 	private static final long serialVersionUID = 1L;
 	private Integer imageId;
@@ -31,7 +34,7 @@ public class ImageUpdateAction extends ActionSupport {
 	private String error, error2, error3;
 	
 	public String redirectToFormEdit(){
-		image = imageDAO.getImageById(imageId);
+		image = imageDAO.getImage(imageId);
 		listCategory = categoryDAO.listCategory();
 		//image =imageDAOImpl.getImageById(imageId);
 		int i = 0;

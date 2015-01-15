@@ -23,6 +23,7 @@ public class ImageMapper implements RowMapper<Image> {
 		image.setImg_userUpLoad(rs.getString("img_user_upload"));
 		image.setImage_file(lobHamdler.getBlobAsBytes(rs, "file_img"));
 		image.setCategory_id(rs.getInt("category_id"));
+		image.setCategory_name(rs.getString("CAT_NAME"));
 		return image;
 	}
 
