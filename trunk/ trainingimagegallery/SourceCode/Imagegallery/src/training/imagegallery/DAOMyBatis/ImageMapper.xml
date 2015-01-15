@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="training.imagegallery.DAO.ImageDAO">
+<resultMap type="Image" id="ImageResult" >
+	<id property="id" column="IMG_NO"/>
+	<result property="img_name" column="IMG_NAME"/>
+	<result property="img_description" column="IMG_DESCRIPTION"/>
+	<result property="dateCreate" column="IMG_DATE_CREATE"/>
+	<result property="img_size" column="IMG_SIZE"/>
+	<result property="img_userUpLoad" column="IMG_USER_UPLOAD"/>
+	<result property="category_id" column="CATEGORY_ID"/>
+	<result property="category_name" column="CAT_NAME"/>
+	
+</resultMap>
+<resultMap type="Image" id="getImageEdit" extends="ImageResult">
+	<id property="category.id" column="ID"/>
+	<id property="category.name" column="CAT_NAME"/>
+</resultMap>
+
+<resultMap type="Image" id="getImageFile" >
+	<id property="id" column="IMG_NO"/>
+	<id property="image_file" column="FILE_IMG" javaType="byte[]" jdbcType="BLOB"  typeHandler="org.apache.ibatis.type.BlobTypeHandler" />
+</resultMap>
+<!-- 	select image -->
+	<select id="listImage" parameterType="int" resultMap="ImageResult">
+		SELECT a.IMG_NO, a.IMG_NAME, a.IMG_DESCRIPTION, a.IMG_DATE_CREATE, a.IMG_SIZE, a.IMG_USER_UPLOAD, b.CAT_NAME 
+		FROM STORE_IMG a INNER  JOIN CATEGORY_IMG b ON a.CATEGORY_ID = b.ID   
+	</select>
+
+	<select  id="getImage" resultMap="getImageFile" >
+		SELECT FILE_IMG FROM STORE_IMG WHERE IMG_NO = #{id}
+	</select>
+	
+	<select  id="getImageById" parameterType="int" resultMap="getImageEdit" >
+		SELECT a.IMG_NO,a.IMG_NAME,a.IMG_DESCRIPTION,a.IMG_DATE_CREATE,a.IMG_SIZE,a.IMG_USER_UPLOAD,a.CATEGORY_ID, b.ID, b.CAT_NAME 
+		FROM STORE_IMG a INNER JOIN CATEGORY_IMG b ON a.CATEGORY_ID = b.ID WHERE a.IMG_NO = #{id}
+	</select>
+<!-- 	insert image -->
+	<insert id= "insertImage" parameterType= "Image" useGeneratedKeys="true" >
+		<selectKey keyProperty="id" resultType="int" order="BEFORE" >
+			SELECT store_id_seq.NEXTVAL FROM DUAL
+		</selectKey>
+		<if test="image_file == null" >
+			INSERT INTO STORE_IMG(IMG_NO, IMG_NAME, IMG_DESCRIPTION, IMG_DATE_CREATE, IMG_USER_UPLOAD, CATEGORY_ID  ) 
+		VALUES(#{id}, #{img_name}, #{img_description}, TO_CHAR(SYSDATE,'DD-MON-YYYY') , #{img_userUpLoad})
+		</if>
+		INSERT INTO STORE_IMG(IMG_NO, IMG_NAME, IMG_DESCRIPTION, IMG_DATE_CREATE, IMG_SIZE, IMG_USER_UPLOAD, FILE_IMG, CATEGORY_ID  ) 
+		VALUES(#{id}, #{img_name}, #{img_description}, TO_CHAR(SYSDATE,'DD-MON-YYYY') , #{img_size}, #{img_userUpLoad}, #{image_file, javaType=byte[], jdbcType=BLOB, typeHandler=org.apache.ibatis.type.BlobTypeHandler}, #{category_id} )
+	</insert>
+<!-- 	update image -->
+	<update id="updateImage" parameterType="Image">
+		UPDATE STORE_IMG SET IMG_NAME = #{img_name} , IMG_DESCRIPTION= #{img_description}, IMG_USER_UPLOAD = #{img_userUpLoad}, CATEGORY_ID = #{category_id}
+		<if test="image_file != null">
+		 , FILE_IMG = #{image_file, javaType=byte[], jdbcType=BLOB, typeHandler=org.apache.ibatis.type.BlobTypeHandler}
+		 , IMG_SIZE = #{img_size} 
+		</if>
+		 WHERE IMG_NO = #{id}
+	</update>
+ <!-- 		delete image -->
+ 	<delete id="deleteImage" parameterType="int">
+ 		DELETE FROM STORE_IMG WHERE IMG_NO= #{id}
+ 	</delete>
+ <!--  search Image -->
+ 	<select id="SearchImageFullText" parameterType="String" resultMap="ImageResult" >
+ 		SELECT a.IMG_NO,a.IMG_NAME,a.IMG_DESCRIPTION,a.IMG_DATE_CREATE,a.IMG_SIZE,a.IMG_USER_UPLOAD,a.CATEGORY_ID, b.CAT_NAME     
+		FROM STORE_IMG a INNER JOIN CATEGORY_IMG b ON a.CATEGORY_ID = b.ID     
+		WHERE a.IMG_NAME LIKE #{key} OR a.IMG_DESCRIPTION LIKE #{key} OR a.IMG_DATE_CREATE LIKE #{key} 
+		OR a.IMG_USER_UPLOAD LIKE #{key} OR b.CAT_NAME LIKE #{key} 
+		ORDER BY a.IMG_NO
+ 	</select>
+
+</mapper>
