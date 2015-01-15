@@ -20,11 +20,12 @@ public class ImageCreateAction extends ActionSupport {
 	/**
 	 * 
 	 */
+	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("Beans.xml");
 	@Autowired
-	ImageDAO imageDAO;
+	ImageDAO imageDAO = (ImageDAO) applicationContext.getBean("ImageDAO") ;
 	
 	@Autowired
-	CategoryDAO categoryDAO;
+	CategoryDAO categoryDAO = (CategoryDAO) applicationContext.getBean("CategoryDAO");
 	private static final long serialVersionUID = 1L;
 	private List<Category> listCategory;
 	private Image image;
@@ -39,7 +40,6 @@ public class ImageCreateAction extends ActionSupport {
 	}
 	
 	// action save image in to database
-	@SuppressWarnings("null")
 	public String saveImage() throws Exception {
 		// get category id in select box
 		boolean check = true;
@@ -66,8 +66,10 @@ public class ImageCreateAction extends ActionSupport {
 			image.setImg_name(image.getImg_name());
 			image.setImg_description(image.getImg_description());
 			image.setCategory_id(image.getCategory_id());
+			if(image.getFile() != null && image.getFile().exists())
 			image.setImg_size(String.valueOf(image.getFile().length()/1024));
 			image.setImg_userUpLoad(image.getImg_userUpLoad());
+			if(image.getFile() != null && image.getFile().exists())
 			image.setImage_file(TranferToByteArray.ByteArray(image.getFile()));
 			imageDAO.insertImage(image);
 			//imageDAOImpl.insertImage(image);

@@ -1,6 +1,8 @@
 package training.imagegallery.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import training.imagegallery.DAO.ImageDAO;
 
@@ -11,8 +13,9 @@ public class ImageDeleteAction extends ActionSupport {
 	/**
 	 * 
 	 */
+	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("Beans.xml");
 	@Autowired
-	ImageDAO imageDAO;
+	ImageDAO imageDAO = (ImageDAO) applicationContext.getBean("ImageDAO") ;
 	
 	private static final long serialVersionUID = 1L;
 	private int imageId;

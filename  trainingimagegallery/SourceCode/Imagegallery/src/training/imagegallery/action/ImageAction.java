@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import training.imagegallery.DAO.ImageDAO;
 import training.imagegallery.model.Image;
@@ -14,8 +16,9 @@ public class ImageAction extends ActionSupport implements ServletRequestAware {
 	/**
 	 * 
 	 */
+	ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("Beans.xml");
 	@Autowired
-	ImageDAO imageDAO ;
+	ImageDAO imageDAO =  applicationContext.getBean("ImageDAO", ImageDAO.class) ;
 	
 	private static final long serialVersionUID = 1L;
 	private Image image;

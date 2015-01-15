@@ -17,8 +17,10 @@ public class CategoryAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private ApplicationContext applicationContext = new ClassPathXmlApplicationContext("Beans.xml");
+	
 	@Autowired
-	CategoryDAO categoryDAO;
+	CategoryDAO categoryDAO = (CategoryDAO) applicationContext.getBean("CategoryDAO");
 	private CategoryForm categoryForm;
 	private List<Category> categoryList;
 	private Integer categoryId;
