@@ -43,8 +43,10 @@ public class ImageListAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	
-	
+	public String listImageJSF(){
+		return SUCCESS;
+	}
+		
 
 	public List<Category> getListCategory() {
 		return listCategory;

@@ -42,6 +42,9 @@
 		<action name="redirectToSlideShow" class="training.imagegallery.action.ImageListAction" method="redirectToSlideShow" >
 			<result name="success" >/pageImage/imageSlideShow.jsp</result>
 		</action>
+		<action name="ListImageJSF" class="training.imagegallery.action.ImageListAction" method="listImageJSF" >
+			<result name="success">faces/jsf/listImage.xhtml</result>
+		</action>
 		<action name="ListImage" class="training.imagegallery.action.ImageListAction" method="listImage" >
 			<result name="success">/pageImage/imageList.jsp</result>
 		</action>

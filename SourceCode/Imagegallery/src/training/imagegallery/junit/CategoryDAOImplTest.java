@@ -4,19 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-import javax.sql.DataSource;
-
 import junit.framework.TestCase;
 
-import org.dbunit.IDatabaseTester;
-import org.dbunit.JdbcDatabaseTester;
-import org.dbunit.dataset.IDataSet;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import training.imagegallery.DAOImpl.CategoryDAOImpl;
 
 import com.opensymphony.xwork2.interceptor.annotations.After;
 

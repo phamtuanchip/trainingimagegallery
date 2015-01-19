@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title></title>
+	</h:head>
+	<h:body>
+		<p:dataTable value="#{imageBean.listImage}" var="image" >
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{image.id}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Name" />
+				</f:facet>
+				<h:outputText value="#{image.img_name}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Description" />
+				</f:facet>
+				<h:outputText value="#{image.img_description}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Date Create" />
+				</f:facet>
+				<h:outputText value="#{image.dateCreate}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Size" />
+				</f:facet>
+				<h:outputText value="#{image.img_size}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="User Upload" />
+				</f:facet>
+				<h:outputText value="#{image.img_userUpLoad}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Category" />
+				</f:facet>
+				<h:outputText value="#{image.category_name}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Image" />
+				</f:facet>
+				<p:graphicImage height="80" width="80" value="#{imageBean.imageFromDB}">
+    				<f:param name="id" value="#{image.id}" />
+			</p:graphicImage>
+				
+			</p:column>
+		</p:dataTable>
+	</h:body>
+</html>
