@@ -12,6 +12,10 @@
 	<s:form action="ListImage" >
 		<s:submit name="Wellcome Page Image" value="wellcom Image gallery"></s:submit>
 	</s:form>
+	<s:form action="ListImageJSF" >
+		<s:submit name="Wellcome Page Image" value="wellcom Image gallery with JSF "></s:submit>
+	</s:form>
+	
 	</div>
 </body>
 </html>
