@@ -1,66 +1,85 @@
 package training.JSF.imagegallery.bean;
 
-import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
+import javax.faces.bean.ViewScoped;
 
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import training.imagegallery.DAO.CategoryDAO;
 import training.imagegallery.DAO.ImageDAO;
+import training.imagegallery.model.Category;
 import training.imagegallery.model.Image;
 
-@ManagedBean
-@SessionScoped
-public class ImageBean {
+@ManagedBean(name = "imageBean")
+@ViewScoped
+public class ImageBean  {
 
+	
 	ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("Beans.xml");
 	@Autowired
 	ImageDAO imageDAO =  applicationContext.getBean("ImageDAO", ImageDAO.class) ;
 	
-	private UploadedFile file ;
+	@Autowired
+	CategoryDAO categoryDAO =  applicationContext.getBean("CategoryDAO", CategoryDAO.class) ;
 	private List<Image> listImage;
-	private Image image;
+	private Image image ;
+	private List<Category> listCategory;
+	@PostConstruct
+	public void init() {
+        image = new Image();
+        listImage = imageDAO.listImage();
+        listCategory = categoryDAO.listCategory();
+        
+    }
 	
-	public StreamedContent  getImageFromDB() throws IOException{
-		FacesContext context = FacesContext.getCurrentInstance();
-
-        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            // So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
-            return new DefaultStreamedContent();
-        }
-        else {
-            // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
-            String id = context.getExternalContext().getRequestParameterMap().get("id");
-            Image image = imageDAO.getImage(Integer.valueOf(id));
-            if(image.getImage_file().length >0){
-            return new DefaultStreamedContent(new ByteArrayInputStream(image.getImage_file()));
-            }
-            return null;
-        }
-	}
+	
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		byte[] imageByte = null ;
+//		System.out.println("uploading...");
+//		System.out.println(event.getFile().getSize());
+//		System.out.println(event.getFile().getContentType());
+		try {
+			imageByte = IOUtils.toByteArray(event.getFile().getInputstream());
+			image.setImg_size( String.valueOf(event.getFile().getSize()/1024));
+			image.setImage_file(imageByte);
+//			System.out.println("test" +  image.getImage_file() + "  " + image.getImg_size());
+//			System.out.println("test" + imageByte.toString() );
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		System.out.println("helllo");
+		 
+			 
+		}
 	
 	public String saveImage(){
-		System.out.println("finish");
-		return "";
+		 
+		//application code
+//		image.setImg_size( String.valueOf(file.getSize()));
+//		image.setImage_file(file.getContents());
+//		System.out.println("imageSize: " + image.getImg_size() + "conetnt: " + image.getImage_file());
+//		System.out.println(image.toString());
+		try {
+			imageDAO.insertImage(image);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		System.out.println("finish");
+		return "listImage";
 	}
 
 	
-	public UploadedFile getFile() {
-		return file;
-	}
-
-	public void setFile(UploadedFile file) {
-		this.file = file;
-	}
 
 
 	public Image getImage() {
@@ -74,14 +93,23 @@ public class ImageBean {
 
 
 	public List<Image> getListImage() {
-		this.listImage = imageDAO.listImage();
-		System.out.println("list Image" + this.listImage.size());
 		return this.listImage;
 	}
 
 
 	public void setListImage(List<Image> listImage) {
 		this.listImage = listImage;
+	}
+
+
+
+	public List<Category> getListCategory() {
+
+		return this.listCategory;
+	}
+
+	public void setListCategory(List<Category> listCategory) {
+		this.listCategory = listCategory ;
 	}
 	
 	

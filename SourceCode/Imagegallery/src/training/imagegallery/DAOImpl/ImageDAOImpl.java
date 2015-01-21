@@ -19,11 +19,9 @@ import org.springframework.jdbc.support.lob.LobHandler;
 import org.springframework.transaction.annotation.Transactional;
 
 import training.imagegallery.DAO.ImageDAO;
-import training.imagegallery.form.ImageForm;
 import training.imagegallery.mapper.ImageMapper;
 import training.imagegallery.mapper.ImageMapperNotImage;
 import training.imagegallery.model.Image;
-import training.imagegallery.model.ImageMybatis;
 
 @Transactional
 public class ImageDAOImpl implements ImageDAO {

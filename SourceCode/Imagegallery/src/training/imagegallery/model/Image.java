@@ -2,18 +2,16 @@ package training.imagegallery.model;
 
 import java.io.File;
 import java.io.Serializable;
-import java.sql.Blob;
 import java.sql.Date;
-import java.util.Arrays;
-
-import oracle.sql.BLOB;
 
 
-public class Image implements Serializable{
+
+public class Image implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -303340490732991443L;
+	private static final long serialVersionUID = 2459394322886728730L;
 	private int id;
 	private String img_name;
 	private String img_description;
@@ -34,6 +32,28 @@ public class Image implements Serializable{
 	}
 	
 	
+	
+	public Image(int id, String img_name, String img_description,
+			Date dateCreate, String img_size, String img_userUpLoad,
+			byte[] image_file, File file, int category_id,
+			String category_name, Category category, String key) {
+		super();
+		this.id = id;
+		this.img_name = img_name;
+		this.img_description = img_description;
+		this.dateCreate = dateCreate;
+		this.img_size = img_size;
+		this.img_userUpLoad = img_userUpLoad;
+		this.image_file = image_file;
+		this.file = file;
+		this.category_id = category_id;
+		this.category_name = category_name;
+		this.category = category;
+		this.key = key;
+	}
+
+
+
 	//getter and setter
 	public int getId() {
 		return id;

@@ -3,15 +3,46 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	<h:head>
-		<title>Journaldev Tutorial</title>
-	</h:head>
-	<h:body>
+<h:head>
+	<title>Add Image</title>
+</h:head>
+<h:body>
+	<div align="center">
 		<h:form enctype="multipart/form-data">
-				<p:fileUpload id="file" value="#{imageBean.file}" sizeLimit="100"  mode="simple"></p:fileUpload>
-				<p:separator/>
-				<h:message for="file" style="color: red" ></h:message>
-				<h:commandButton value="Dummy Action" action="#{imageBean.saveImage}"></h:commandButton>
+			<p:panelGrid columns="2">
+				<f:facet name="header">
+							FORM IMAGE ADD
+					</f:facet>
+
+				<h:outputLabel  value="ImageName:" />
+				<p:inputText value="#{imageBean.image.img_name}" label="imageName" />
+
+				<h:outputLabel  value="Description:" />
+				<p:inputTextarea  value="#{imageBean.image.img_description}" label="Description"
+					rows="2">
+				</p:inputTextarea>
+
+				<h:outputLabel  value="user Upload:" />
+				<p:inputText value="#{imageBean.image.img_userUpLoad}"
+					label="userUpload" />
+
+				<h:outputLabel for="category" value="Category" />
+				<p:selectOneMenu id="category" value="#{imageBean.image.category_id}"
+					style="width:150px">
+					<f:selectItem itemLabel="Select Category" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems value="#{imageBean.listCategory}" var="category" itemLabel="#{category.name}" itemValue="#{category.id}" />
+				</p:selectOneMenu>
+				<h:outputLabel for="file" value="Image:" />
+				<p:fileUpload fileUploadListener="#{imageBean.handleFileUpload}" multiple="false" />
+				<f:facet name="footer">
+					<div align="center">
+						<p:commandButton type="submit" value="Save" icon="ui-icon-check"
+							action="#{imageBean.saveImage}" ajax="false" />
+					</div>
+				</f:facet>
+			</p:panelGrid>
 		</h:form>
-	</h:body>
+	</div>
+</h:body>
 </html>
