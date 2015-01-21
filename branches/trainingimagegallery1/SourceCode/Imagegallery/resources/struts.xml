@@ -4,6 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<constant name="struts.action.excludePattern" value="/rest/.*?" />
+	<constant name="struts.action.excludePattern" value="/faces/*?" />
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.custom.i18n.resources" value="bundles.ApplicationResource" />
 	<constant name="struts.ui.theme" value="simple" />

@@ -62,7 +62,8 @@ public class ImageCreateAction extends ActionSupport {
 				return INPUT;
 			}
 		try{
-			image = new Image();
+			System.out.println("file size " + image.getFile().length());
+			//image = new Image();
 			image.setImg_name(image.getImg_name());
 			image.setImg_description(image.getImg_description());
 			image.setCategory_id(image.getCategory_id());
@@ -71,6 +72,8 @@ public class ImageCreateAction extends ActionSupport {
 			image.setImg_userUpLoad(image.getImg_userUpLoad());
 			if(image.getFile() != null && image.getFile().exists())
 			image.setImage_file(TranferToByteArray.ByteArray(image.getFile()));
+			System.out.println("byte" + image.getImage_file());
+			System.out.println("file size " + image.getFile().length());
 			imageDAO.insertImage(image);
 			//imageDAOImpl.insertImage(image);
 		return SUCCESS;
